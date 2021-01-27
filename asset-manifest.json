@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/React-RecordApp/static/css/main.8706972b.chunk.css",
-    "main.js": "/React-RecordApp/static/js/main.4866948d.chunk.js",
-    "main.js.map": "/React-RecordApp/static/js/main.4866948d.chunk.js.map",
-    "runtime-main.js": "/React-RecordApp/static/js/runtime-main.92784595.js",
-    "runtime-main.js.map": "/React-RecordApp/static/js/runtime-main.92784595.js.map",
-    "static/js/2.f34939d0.chunk.js": "/React-RecordApp/static/js/2.f34939d0.chunk.js",
-    "static/js/2.f34939d0.chunk.js.map": "/React-RecordApp/static/js/2.f34939d0.chunk.js.map",
-    "static/js/3.3b2f4da8.chunk.js": "/React-RecordApp/static/js/3.3b2f4da8.chunk.js",
-    "static/js/3.3b2f4da8.chunk.js.map": "/React-RecordApp/static/js/3.3b2f4da8.chunk.js.map",
+    "main.js": "/React-RecordApp/static/js/main.bb8fd935.chunk.js",
+    "main.js.map": "/React-RecordApp/static/js/main.bb8fd935.chunk.js.map",
+    "runtime-main.js": "/React-RecordApp/static/js/runtime-main.e7769318.js",
+    "runtime-main.js.map": "/React-RecordApp/static/js/runtime-main.e7769318.js.map",
+    "static/js/2.40fc5576.chunk.js": "/React-RecordApp/static/js/2.40fc5576.chunk.js",
+    "static/js/2.40fc5576.chunk.js.map": "/React-RecordApp/static/js/2.40fc5576.chunk.js.map",
+    "static/js/3.8ed90c05.chunk.js": "/React-RecordApp/static/js/3.8ed90c05.chunk.js",
+    "static/js/3.8ed90c05.chunk.js.map": "/React-RecordApp/static/js/3.8ed90c05.chunk.js.map",
     "index.html": "/React-RecordApp/index.html",
     "static/css/main.8706972b.chunk.css.map": "/React-RecordApp/static/css/main.8706972b.chunk.css.map",
-    "static/js/2.f34939d0.chunk.js.LICENSE.txt": "/React-RecordApp/static/js/2.f34939d0.chunk.js.LICENSE.txt",
+    "static/js/2.40fc5576.chunk.js.LICENSE.txt": "/React-RecordApp/static/js/2.40fc5576.chunk.js.LICENSE.txt",
     "static/media/close.518b0934.svg": "/React-RecordApp/static/media/close.518b0934.svg",
     "static/media/female.9fbeb7a3.svg": "/React-RecordApp/static/media/female.9fbeb7a3.svg",
     "static/media/genderless.c3ce3db4.svg": "/React-RecordApp/static/media/genderless.c3ce3db4.svg",
     "static/media/male.a5141d2c.svg": "/React-RecordApp/static/media/male.a5141d2c.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.92784595.js",
-    "static/js/2.f34939d0.chunk.js",
+    "static/js/runtime-main.e7769318.js",
+    "static/js/2.40fc5576.chunk.js",
     "static/css/main.8706972b.chunk.css",
-    "static/js/main.4866948d.chunk.js"
+    "static/js/main.bb8fd935.chunk.js"
   ]
 }
