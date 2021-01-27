@@ -1,19 +1,27 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { FILTER_NONE } from "../hooks/useFilter";
 import RecordItem from "./RecordItem";
 import RecordModal from "./RecordModal";
+import FilterList from "./FilterList";
 
-
-const RecordList = ({ data, page, pageNumbers, navigateToPage, onSearch }) => {
+const RecordList = ({ data, page, pageNumbers, navigateToPage, onSearch, filterBasedOnParams, filterTerm=FILTER_NONE }) => {
     const [ selectedProfile, setSelectedProfile ] = useState(null);
+
     return (
         <RecordListWrapper>
             <header>
                 <h2>Profiles</h2>
                 <div>
-                    <input onChange={onSearch} />
+                    <input onChange={onSearch} placeholder="Search for a record here..." />
                 </div>
             </header>
+            <FilterList filterTerm={filterTerm} filterBasedOnParams={filterBasedOnParams} />
+            {
+                data.length === 0 && (
+                    <div className="no-field">No Record</div>
+                )
+            }
             {   data.map((item, index) => (
                 <RecordItem key={`list-item-${index}`} item={item} onAction={() => setSelectedProfile(item)} />
             ))}
@@ -30,6 +38,7 @@ const RecordList = ({ data, page, pageNumbers, navigateToPage, onSearch }) => {
         </RecordListWrapper>
     )
 }
+
 
 const RecordListWrapper = styled.div`
     width: 700px;
@@ -53,6 +62,14 @@ const RecordListWrapper = styled.div`
                 font-size: 16px;
             }
         }
+    }
+
+    .no-field {
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
     }
 
     .pagination {

@@ -4,6 +4,7 @@ import './App.css';
 import ErrorPage from './components/ErrorPage';
 import LoadingPage from './components/LoadingPage';
 import RecordList from './components/RecordList';
+import useFilter, { FILTER_GENDER_FEMALE, FILTER_GENDER_MALE, FILTER_NONE, FILTER_PMT_METHOD_CC, FILTER_PMT_METHOD_CHECK, FILTER_PMT_METHOD_PAYPAL, NO_FILTER_GENDER, NO_FILTER_PMT } from './hooks/useFilter';
 import usePagination from './hooks/usePagination';
 import useSearch from './hooks/useSearch';
 
@@ -27,10 +28,58 @@ const reducer = (state, action) => {
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [searchTerm, setSearchTerm] = useState('');
-  const [data] = useSearch(state.data.profiles, searchTerm);
+  const [filterTerm, setFilterTerm] = useState(FILTER_NONE);
+  const [filteredData] = useFilter(state.data.profiles, filterTerm);
+  const [data] = useSearch(filteredData, searchTerm);
   const [page, setPage] = useState(1);
   const [pageData, pageNumbers] = usePagination(data, page, RECORD_PER_PAGE);
   
+  const filterBasedOnParams = (param) => {
+    switch (param) {
+      case FILTER_GENDER_FEMALE: {
+        let newFilterTerm = filterTerm === FILTER_NONE ? [] : filterTerm;
+        newFilterTerm = newFilterTerm.filter(term => term !== FILTER_GENDER_MALE);
+        newFilterTerm.push(FILTER_GENDER_FEMALE)
+        return setFilterTerm(newFilterTerm)
+      }
+      case FILTER_GENDER_MALE: {
+        let newFilterTerm = filterTerm === FILTER_NONE ? [] : filterTerm;
+        newFilterTerm = newFilterTerm.filter(term => term !== FILTER_GENDER_FEMALE);
+        newFilterTerm.push(FILTER_GENDER_MALE)
+        return setFilterTerm(newFilterTerm)
+      }
+      case NO_FILTER_GENDER: {
+        let newFilterTerm = filterTerm === FILTER_NONE ? [] : filterTerm;
+        newFilterTerm = newFilterTerm.filter(term => term !== FILTER_GENDER_MALE && term !== FILTER_GENDER_FEMALE);
+        return setFilterTerm(newFilterTerm.length === 0 ? FILTER_NONE : newFilterTerm)
+      }
+      case FILTER_PMT_METHOD_CC: {
+        let newFilterTerm = filterTerm === FILTER_NONE ? [] : filterTerm;
+        newFilterTerm = newFilterTerm.filter(term => term !== FILTER_PMT_METHOD_CHECK && term !== FILTER_PMT_METHOD_PAYPAL);
+        newFilterTerm.push(FILTER_PMT_METHOD_CC)
+        return setFilterTerm(newFilterTerm)
+      }
+      case FILTER_PMT_METHOD_CHECK: {
+        let newFilterTerm = filterTerm === FILTER_NONE ? [] : filterTerm;
+        newFilterTerm = newFilterTerm.filter(term => term !== FILTER_PMT_METHOD_CC && term !== FILTER_PMT_METHOD_PAYPAL);
+        newFilterTerm.push(FILTER_PMT_METHOD_CHECK)
+        return setFilterTerm(newFilterTerm)
+      }
+      case FILTER_PMT_METHOD_PAYPAL: {
+        let newFilterTerm = filterTerm === FILTER_NONE ? [] : filterTerm;
+        newFilterTerm = newFilterTerm.filter(term => term !== FILTER_PMT_METHOD_CC && term !== FILTER_PMT_METHOD_CHECK);
+        newFilterTerm.push(FILTER_PMT_METHOD_PAYPAL)
+        return setFilterTerm(newFilterTerm)
+      }
+      case NO_FILTER_PMT: {
+        let newFilterTerm = filterTerm === FILTER_NONE ? [] : filterTerm;
+        newFilterTerm = newFilterTerm.filter(term => term !== FILTER_PMT_METHOD_CC && term !== FILTER_PMT_METHOD_CHECK && term !== FILTER_PMT_METHOD_PAYPAL);
+        return setFilterTerm(newFilterTerm.length === 0 ? FILTER_NONE : newFilterTerm)
+      }
+      case FILTER_NONE:
+      default: setFilterTerm(FILTER_NONE)
+    }
+  }
 
   const fetchData = async () => {
     try {
@@ -59,7 +108,7 @@ const App = () => {
       {
         state.error ? (
           <ErrorPage />
-        ) : state.loading ? <LoadingPage /> : <RecordList data={pageData} page={page} pageNumbers={pageNumbers} navigateToPage={(num) => setPage(parseInt(num))} onSearch={(event) => setSearchTerm(event.target.value.trim())} />
+        ) : state.loading ? <LoadingPage /> : <RecordList data={pageData} page={page} pageNumbers={pageNumbers} navigateToPage={(num) => setPage(parseInt(num))} filterBasedOnParams={filterBasedOnParams} filterTerm={filterTerm} onSearch={(event) => setSearchTerm(event.target.value.trim())} />
       }
     </AppWrapper>
   );
@@ -68,7 +117,7 @@ const App = () => {
 const AppWrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  overflow: auto;
+  overflow-y: scroll;
 `
 
 export default App;
